@@ -1,0 +1,498 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>مملكة السلوك والمواظبة</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one centered column, screens swap in place; royal purple world with a gold accent. */
+:root {
+  --bg: #2a1448;
+  --bg-deep: #1d0d35;
+  --panel: #3a2063;
+  --panel-2: #47287a;
+  --line: #5e3f93;
+  --fg: #f6f0ff;
+  --muted: #bfaee0;
+  --gold: #f2c14e;
+  --gold-ink: #3b2600;
+  --good: #3fcf8e;
+  --good-bg: #123d2f;
+  --bad: #ff7a8a;
+  --bad-bg: #4a1a2c;
+  --font-display: "Reem Kufi", "Segoe UI", Tahoma, sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { direction: rtl; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  padding-block: 20px 36px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  min-height: 100vh;
+  background-image: radial-gradient(circle at 50% -10%, #4b2a80 0%, var(--bg) 55%);
+}
+.wrap { max-width: 560px; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; text-wrap: balance; line-height: 1.35; }
+button { font-family: inherit; font-size: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.btn {
+  border: 0; border-radius: 12px; padding: 13px 22px; font-weight: 600;
+  background: var(--gold); color: var(--gold-ink); min-height: 48px;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn.ghost { background: transparent; color: var(--fg); border: 1.5px solid var(--line); }
+.btn.ghost:hover { background: var(--panel); }
+.btn[disabled] { opacity: .45; cursor: default; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Home */
+.crest { width: 76px; height: 76px; display: block; margin-bottom: 14px; }
+.eyebrow { color: var(--gold); font-weight: 600; letter-spacing: .04em; font-size: 14px; }
+.home h1 { font-size: clamp(34px, 9vw, 46px); margin-block: 4px 10px; }
+.school { color: var(--muted); margin: 0 0 18px; }
+.staff {
+  display: grid; gap: 0; margin-block: 18px 22px;
+  border-block: 1px solid var(--line);
+}
+.staff div { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.staff div:last-child { border-bottom: 0; }
+.staff dt { color: var(--muted); }
+.staff dd { margin: 0; font-weight: 600; }
+.staff { margin-inline: 0; }
+.lead { margin: 0 0 22px; }
+.facts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; color: var(--muted); font-size: 14px; }
+.facts span { background: var(--bg-deep); border-radius: 999px; padding: 4px 12px; }
+.best-line { color: var(--gold); font-size: 14px; margin-top: 14px; min-height: 22px; }
+
+/* Quiz */
+.hud { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.stat { background: var(--panel); border-radius: 12px; padding: 8px 6px; text-align: center; }
+.stat b { display: block; font-family: var(--font-display); font-size: 22px; color: var(--gold); font-variant-numeric: tabular-nums; line-height: 1.3; }
+.stat small { color: var(--muted); font-size: 12px; }
+.progress { height: 8px; background: var(--bg-deep); border-radius: 99px; overflow: hidden; margin-bottom: 6px; }
+.progress i { display: block; height: 100%; background: var(--gold); width: 0; transition: width .3s; }
+.gate { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+.qcard { background: var(--panel); border-radius: 18px; padding: 20px 18px; }
+.qtag { display: inline-block; font-size: 13px; color: var(--gold); border: 1px solid var(--gold); border-radius: 99px; padding: 0 10px; margin-bottom: 10px; }
+.qtext { font-size: 20px; font-family: var(--font-display); line-height: 1.7; margin-bottom: 16px; font-weight: 500; }
+.opts { display: grid; gap: 10px; }
+.opt {
+  text-align: right; background: var(--panel-2); border: 2px solid transparent; border-radius: 12px;
+  padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; min-height: 52px; line-height: 1.6;
+}
+.opt:hover:not([disabled]) { border-color: var(--gold); }
+.opt .mark { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--bg-deep); display: grid; place-items: center; font-size: 14px; margin-top: 2px; }
+.opt.right { background: var(--good-bg); border-color: var(--good); }
+.opt.right .mark { background: var(--good); color: #04281c; }
+.opt.wrong { background: var(--bad-bg); border-color: var(--bad); }
+.opt.wrong .mark { background: var(--bad); color: #3a0613; }
+.opt[disabled] { cursor: default; }
+.explain { margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: var(--bg-deep); border-inline-start: 4px solid var(--gold); }
+.explain.ok { border-color: var(--good); }
+.explain.no { border-color: var(--bad); }
+.explain strong { display: block; margin-bottom: 2px; }
+.next-row { margin-top: 14px; display: flex; justify-content: flex-start; }
+.toast {
+  position: fixed; inset-inline: 0; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); margin-inline: auto;
+  width: max-content; max-width: calc(100% - 32px); background: var(--gold); color: var(--gold-ink);
+  padding: 10px 18px; border-radius: 12px; font-weight: 600; box-shadow: 0 8px 24px #0006;
+}
+
+/* Result */
+.result h2 { font-size: 32px; }
+.bigpct { font-family: var(--font-display); font-size: 72px; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums; margin-block: 6px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-block: 14px; }
+.badges { display: grid; gap: 8px; margin-block: 8px 20px; }
+.badge { display: flex; gap: 12px; align-items: center; background: var(--panel); border-radius: 12px; padding: 10px 14px; }
+.badge svg { flex: none; width: 30px; height: 30px; }
+.badge b { display: block; }
+.badge small { color: var(--muted); }
+.badge.off { opacity: .45; }
+
+/* Certificate */
+.cert-name { display: grid; gap: 6px; margin-bottom: 14px; }
+.cert-name label { color: var(--muted); font-size: 14px; }
+.cert-name input {
+  font-family: inherit; font-size: 18px; padding: 12px 14px; border-radius: 12px;
+  border: 1.5px solid var(--line); background: var(--bg-deep); color: var(--fg); width: 100%;
+}
+.cert {
+  background: #fbf6e8; color: #2b1a4a; border-radius: 6px; padding: 8px; margin-bottom: 14px;
+}
+.cert-in {
+  border: 3px double #b8892b; padding: 24px 16px 22px; text-align: center; display: grid; gap: 6px;
+}
+.cert .ministry { font-size: 13px; letter-spacing: .03em; color: #5b3d8f; }
+.cert h2 { font-size: 34px; color: #4a2380; }
+.cert .who { font-family: var(--font-display); font-size: 30px; color: #8a5a00; border-bottom: 1px solid #b8892b; margin-inline: 14%; padding-bottom: 2px; min-height: 48px; overflow-wrap: anywhere; }
+.cert p { margin: 0; }
+.cert .meta { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; font-weight: 600; margin-block: 6px; }
+.sign { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; font-size: 13px; }
+.sign div { border-top: 1px solid #b8892b; padding-top: 6px; }
+.sign b { display: block; font-size: 14px; color: #4a2380; }
+.cert .foot { font-size: 12px; color: #5b3d8f; margin-top: 10px; }
+.hint { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+
+/* Guide */
+.guide h2 { font-size: 28px; margin-bottom: 10px; }
+.guide h3 { font-size: 20px; color: var(--gold); margin-block: 22px 6px; }
+.guide p { margin: 0 0 8px; }
+.tablewrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 15px; }
+th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--panel); color: var(--gold); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+@media (max-width: 380px) { .hud { grid-template-columns: repeat(2, 1fr); } .qtext { font-size: 18px; } }
+</style>
+
+<div class="wrap">
+
+  <!-- الرئيسية -->
+  <section id="home" class="home">
+    <svg class="crest" viewBox="0 0 80 80" aria-hidden="true">
+      <path d="M8 62 L8 30 L22 42 L40 16 L58 42 L72 30 L72 62 Z" fill="#f2c14e"/>
+      <rect x="8" y="62" width="64" height="9" rx="2" fill="#c9962c"/>
+      <circle cx="8" cy="28" r="5" fill="#f6f0ff"/><circle cx="40" cy="13" r="5" fill="#f6f0ff"/><circle cx="72" cy="28" r="5" fill="#f6f0ff"/>
+    </svg>
+    <div class="eyebrow">رحلة تعليمية تفاعلية</div>
+    <h1>مملكة السلوك والمواظبة</h1>
+    <p class="school">الابتدائية الثانية والمتوسطة الأولى بروضة سدير</p>
+    <p class="lead">تعلّمي قواعد السلوك والمواظبة في المرحلة الابتدائية، وطبّقيها على مواقف من الحياة المدرسية، وكوني بطلة السلوك المتميز.</p>
+    <dl class="staff">
+      <div><dt>مديرة المدرسة</dt><dd>العنود الرويس</dd></div>
+      <div><dt>وكيلة المدرسة</dt><dd>علا اليحيا</dd></div>
+      <div><dt>الموجهة الطلابية</dt><dd>شيخة الزكري</dd></div>
+    </dl>
+    <div class="row">
+      <button class="btn" id="startBtn">ابدئي المغامرة</button>
+      <button class="btn ghost" id="guideBtn">دليل المملكة</button>
+    </div>
+    <div class="best-line" id="bestLine"></div>
+    <div class="facts"><span>٢٠ سؤالاً</span><span>نقاط وجواهر</span><span>شارات إنجاز</span><span>شهادة اجتياز</span></div>
+  </section>
+
+  <!-- الأسئلة -->
+  <section id="quiz" hidden>
+    <div class="hud" aria-live="polite">
+      <div class="stat"><b id="sPoints">0</b><small>النقاط</small></div>
+      <div class="stat"><b id="sGems">0</b><small>الجواهر</small></div>
+      <div class="stat"><b id="sStreak">0</b><small>سلسلة صحيحة</small></div>
+      <div class="stat"><b id="sBest">0</b><small>أفضل نتيجة</small></div>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="gate"><span id="gateName"></span><span id="gateCount"></span></div>
+    <div class="qcard">
+      <span class="qtag" id="qtag"></span>
+      <div class="qtext" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div id="explain" class="explain" hidden></div>
+      <div class="next-row"><button class="btn" id="nextBtn" hidden>السؤال التالي</button></div>
+    </div>
+  </section>
+
+  <!-- النتيجة -->
+  <section id="result" class="result" hidden>
+    <div class="eyebrow">انتهت الرحلة</div>
+    <h2 id="rTitle">أحسنتِ يا بطلة!</h2>
+    <div class="bigpct" id="rPct">0%</div>
+    <div class="grid3">
+      <div class="stat"><b id="rCorrect">0</b><small>إجابات صحيحة</small></div>
+      <div class="stat"><b id="rPoints">0</b><small>النقاط النهائية</small></div>
+      <div class="stat"><b id="rGems">0</b><small>الجواهر</small></div>
+    </div>
+    <h3>شاراتك</h3>
+    <div class="badges" id="badges"></div>
+    <div class="row">
+      <button class="btn" id="certBtn">عرض شهادة الاجتياز</button>
+      <button class="btn ghost" id="againBtn">إعادة اللعب</button>
+      <button class="btn ghost" id="homeBtn1">الرئيسية</button>
+    </div>
+  </section>
+
+  <!-- الشهادة -->
+  <section id="certSec" hidden>
+    <div class="cert-name">
+      <label for="nameInput">اكتبي اسم الطالبة</label>
+      <input id="nameInput" type="text" maxlength="40" placeholder="الاسم الثلاثي" autocomplete="off">
+    </div>
+    <div class="cert" id="certBox">
+      <div class="cert-in">
+        <div class="ministry">المملكة العربية السعودية — وزارة التعليم</div>
+        <div class="ministry">الابتدائية الثانية والمتوسطة الأولى بروضة سدير</div>
+        <h2>شهادة اجتياز</h2>
+        <p>تُمنح هذه الشهادة للطالبة</p>
+        <div class="who" id="certWho"></div>
+        <p>لاجتيازها لعبة <b>مملكة السلوك والمواظبة</b><br>وإظهارها فهماً متميزاً لقيم الانضباط والأمانة والتعاون والسلوك الإيجابي.</p>
+        <div class="meta"><span>نسبة الإتقان: <span id="certPct"></span></span><span>التقدير: <span id="certGrade"></span></span><span>التاريخ: <span id="certDate"></span></span></div>
+        <div class="sign">
+          <div><b>شيخة الزكري</b>الموجهة الطلابية</div>
+          <div><b>علا اليحيا</b>وكيلة المدرسة</div>
+          <div><b>العنود الرويس</b>مديرة المدرسة</div>
+        </div>
+        <div class="foot">جميع الحقوق محفوظة للابتدائية الثانية والمتوسطة الأولى بروضة سدير</div>
+      </div>
+    </div>
+    <p class="hint">لحفظ الشهادة، التقطي لقطة شاشة بعد كتابة الاسم.</p>
+    <div class="row"><button class="btn ghost" id="backRes">العودة للنتيجة</button></div>
+  </section>
+
+  <!-- الدليل -->
+  <section id="guide" class="guide" hidden>
+    <h2>دليل مملكة السلوك</h2>
+    <p><b>للصفوف من الثالث إلى السادس الابتدائي:</b> درجة السلوك ١٠٠ درجة، منها ٨٠ للسلوك الإيجابي و٢٠ للسلوك المتميز. وتُستخدم اللعبة مع الصفين الأول والثاني للتوعية بالسلوك الصحيح.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>درجة المشكلة</th><th>الحسم</th><th>مثال</th></tr></thead>
+        <tbody>
+          <tr><td>الأولى</td><td>درجة واحدة</td><td>التأخر أو الأكل أثناء الدرس دون استئذان</td></tr>
+          <tr><td>الثانية</td><td>درجتان</td><td>الخروج دون استئذان أو السخرية أو العبث بالمرافق</td></tr>
+          <tr><td>الثالثة</td><td>٣ درجات</td><td>السرقة أو الضرب أو التصوير دون إذن أو الهروب</td></tr>
+          <tr><td>الرابعة</td><td>١٠ درجات</td><td>التنمر أو إشعال النار أو الأداة الحادة أو الجريمة المعلوماتية</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>قيم السلوك المتميز</h3>
+    <p>الانتماء الوطني، الانضباط، العزيمة، التسامح، الأمانة، والتعاون.</p>
+    <h3>فرص كسب درجات السلوك المتميز</h3>
+    <p>الانضباط دون غياب بعذر غير مقبول، الخدمة المجتمعية، الفعاليات والحملات التوعوية، الأنشطة المدرسية، الإذاعة، المقترحات، والتعاون.</p>
+    <p class="hint">اللعبة للتوعية والتدريب. عند التطبيق الإداري الرسمي يُرجع إلى النص الكامل لقواعد السلوك والمواظبة.</p>
+    <div class="row"><button class="btn" id="guideBack">رجوع</button></div>
+  </section>
+
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function () {
+  var Q = [
+    { gate: "بوابة الانضباط", t: "وصلتِ إلى الطابور الصباحي بعد بدايته دون عذر. ما درجة هذه المخالفة؟",
+      o: ["الأولى، وتُحسم درجة واحدة", "الثانية، وتُحسم درجتان", "الثالثة، وتُحسم ٣ درجات", "ليست مخالفة"], a: 0,
+      e: "التأخر من مخالفات الدرجة الأولى، ويُحسم لها درجة واحدة. الحضور في الوقت يحميك من هذا الحسم." },
+    { gate: "بوابة الانضباط", t: "أكلتِ أثناء الدرس دون استئذان من المعلمة. إلى أي درجة تنتمي المخالفة؟",
+      o: ["الدرجة الرابعة", "الدرجة الأولى", "الدرجة الثالثة", "لا تُحسب"], a: 1,
+      e: "الأكل أثناء الدرس دون استئذان من الدرجة الأولى. اتركي الأكل للفسحة." },
+    { gate: "بوابة الانضباط", t: "خرجتِ من الصف دون استئذان. كم درجة تُحسم؟",
+      o: ["درجة واحدة", "٣ درجات", "درجتان", "١٠ درجات"], a: 2,
+      e: "الخروج من الصف دون استئذان من مخالفات الدرجة الثانية، ويُحسم لها درجتان. استأذني دائماً قبل الخروج." },
+    { gate: "بوابة الانضباط", t: "ما الذي يدخل ضمن مخالفات الدرجة الثانية؟",
+      o: ["السخرية من زميلة", "ارتداء الحذاء الرياضي", "رفع اليد للإجابة", "ترتيب الحقيبة"], a: 0,
+      e: "السخرية من الزميلات والعبث بمرافق المدرسة من الدرجة الثانية، ويُحسم لهما درجتان." },
+    { gate: "بوابة الانضباط", t: "رأيتِ زميلتك ترسم على جدار الفصل وتعبث بالمرافق. ماذا تنصحينها؟",
+      o: ["أن تكمل لأن الأمر بسيط", "أن تتوقف لأن المرافق ملك للجميع", "أن تفعل ذلك في الفسحة فقط", "أن تطلب من غيرها المساعدة"], a: 1,
+      e: "العبث بالمرافق من الدرجة الثانية. المحافظة على مرافق المدرسة مسؤولية الجميع." },
+    { gate: "بوابة الأمانة", t: "أخذت طالبة أداة زميلتها دون علمها وأخفتها. ما درجة هذه المخالفة؟",
+      o: ["الأولى", "الثانية", "الثالثة، وتُحسم ٣ درجات", "الرابعة، وتُحسم ١٠ درجات"], a: 2,
+      e: "السرقة من مخالفات الدرجة الثالثة، ويُحسم لها ٣ درجات. الأمانة قيمة أساسية في سلوكك المتميز." },
+    { gate: "بوابة الأمانة", t: "غضبت زميلتك وضربت طالبة أخرى. كم درجة تُحسم؟",
+      o: ["درجة واحدة", "درجتان", "٣ درجات", "لا شيء"], a: 2,
+      e: "الضرب من الدرجة الثالثة ويُحسم له ٣ درجات. الحوار الهادئ وطلب مساعدة المعلمة هما الطريق الصحيح." },
+    { gate: "بوابة الأمانة", t: "أخرجتِ جوالك لتصوّري زميلتك دون أن تعلم. ما الحكم؟",
+      o: ["مباح لأنها زميلتك", "الدرجة الأولى", "الدرجة الثالثة، وتُحسم ٣ درجات", "لا يُحسب إن لم تنشريها"], a: 2,
+      e: "التصوير دون إذن من الدرجة الثالثة. لكل شخص حق في خصوصيته، وعليك أن تستأذني قبل أي تصوير." },
+    { gate: "بوابة الأمانة", t: "فكّرت طالبة في مغادرة المدرسة قبل نهاية الدوام دون إذن. ما درجة الهروب؟",
+      o: ["الثالثة", "الأولى", "الثانية", "الرابعة"], a: 0,
+      e: "الهروب من المدرسة من مخالفات الدرجة الثالثة، وتُحسم له ٣ درجات، وفيه خطر على سلامتك." },
+    { gate: "بوابة الأمان", t: "تتكرر إساءة طالبة لأخرى بالكلام والإقصاء بقصد الإيذاء. ماذا يسمى هذا السلوك، وما درجته؟",
+      o: ["مزاح، لا درجة له", "خلاف عابر، الدرجة الأولى", "تنمر، الدرجة الرابعة", "سخرية، الدرجة الثانية فقط"], a: 2,
+      e: "التنمر من مخالفات الدرجة الرابعة، ويُحسم له ١٠ درجات. أخبري المعلمة أو الموجهة الطلابية إن رأيتِه أو تعرضتِ له." },
+    { gate: "بوابة الأمان", t: "وجدتِ أداة حادة في حقيبة زميلتك داخل المدرسة. ماذا تفعلين؟",
+      o: ["أتجاهلها", "أخبر المعلمة فوراً", "أجرّبها", "أخفيها دون إخبار أحد"], a: 1,
+      e: "الأداة الحادة من مخالفات الدرجة الرابعة (١٠ درجات). إخبار المعلمة يحمي الجميع." },
+    { gate: "بوابة الأمان", t: "أيٌّ مما يلي من مخالفات الدرجة الرابعة؟",
+      o: ["نسيان الدفتر", "إشعال النار", "التأخر عن الحصة", "الحديث بصوت مرتفع"], a: 1,
+      e: "إشعال النار من الدرجة الرابعة لخطورته على الجميع، ويُحسم له ١٠ درجات." },
+    { gate: "بوابة الأمان", t: "نشرت طالبة صورة مزعجة لزميلتها في مجموعة على الإنترنت. كيف تُصنَّف؟",
+      o: ["جريمة معلوماتية، الدرجة الرابعة", "تصرف بسيط، الدرجة الأولى", "أمر خاص، لا حسم", "الدرجة الثانية"], a: 0,
+      e: "الجريمة المعلوماتية من الدرجة الرابعة، ويُحسم لها ١٠ درجات. فكّري قبل أن ترسلي أو تنشري أي شيء." },
+    { gate: "بوابة الدرجات", t: "كم درجة السلوك للصفوف من الثالث إلى السادس الابتدائي، وكيف تتوزع؟",
+      o: ["٥٠ للإيجابي و٥٠ للمتميز", "١٠٠ درجة: ٨٠ للإيجابي و٢٠ للمتميز", "٩٠ للإيجابي و١٠ للمتميز", "٧٠ للإيجابي و٣٠ للمتميز"], a: 1,
+      e: "درجة السلوك ١٠٠: ٨٠ للسلوك الإيجابي و٢٠ للسلوك المتميز. أما الصفان الأول والثاني فتُستخدم اللعبة معهما للتوعية." },
+    { gate: "بوابة الدرجات", t: "أيٌّ مما يلي من قيم السلوك المتميز؟",
+      o: ["التفاخر", "الأمانة", "التأخر", "الإهمال"], a: 1,
+      e: "قيم السلوك المتميز: الانتماء الوطني، الانضباط، العزيمة، التسامح، الأمانة، والتعاون." },
+    { gate: "بوابة الدرجات", t: "تشاركين في الإذاعة المدرسية صباح كل أسبوع. كيف يفيدك ذلك؟",
+      o: ["تُحسم منك درجات", "هي فرصة لكسب درجات السلوك المتميز", "لا علاقة لها بالسلوك", "تُلغى مخالفاتك السابقة"], a: 1,
+      e: "الإذاعة والأنشطة المدرسية والخدمة المجتمعية والحملات التوعوية من فرص كسب درجات السلوك المتميز." },
+    { gate: "بوابة المواقف", t: "وجدتِ في الفناء محفظة زميلتك وفيها نقود. ما التصرف الأمين؟",
+      o: ["آخذ النقود وأترك المحفظة", "أسلّمها للمعلمة أو الإدارة", "أحتفظ بها حتى تسأل عنها", "أتركها مكانها"], a: 1,
+      e: "الأمانة أن تسلّمي ما وجدتِه لمعلمتك أو للإدارة لتصل إلى صاحبته." },
+    { gate: "بوابة المواقف", t: "لاحظتِ أن زميلتك تتعرض للتنمر كل يوم في الفسحة. ما أفضل تصرف؟",
+      o: ["أضحك مع المتنمرات", "أصمت حتى لا أتورط", "أخبر المعلمة أو الموجهة الطلابية شيخة الزكري", "أنشر الأمر بين الطالبات"], a: 2,
+      e: "إبلاغ المعلمة أو الموجهة الطلابية يحمي زميلتك، ويظهر تعاونك وانتماءك لمدرستك." },
+    { gate: "بوابة المواقف", t: "أخطأت زميلتك في حقك واعتذرت لك بصدق. أي قيمة تظهرين بقبول اعتذارها؟",
+      o: ["التسامح", "العناد", "الانتقام", "التجاهل"], a: 0,
+      e: "التسامح من قيم السلوك المتميز. قبول الاعتذار يحافظ على الصداقة ويبني بيئة مدرسية هادئة." }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var screens = ["home", "quiz", "result", "certSec", "guide"];
+  var prevScreen = "home";
+  var state;
+  var toastTimer;
+
+  function show(id) {
+    screens.forEach(function (s) { $(s).hidden = (s !== id); });
+    window.scrollTo(0, 0);
+  }
+  function arNum(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
+  function getBest() { try { return parseInt(localStorage.getItem("bk_best") || "0", 10) || 0; } catch (e) { return 0; } }
+  function setBest(v) { try { localStorage.setItem("bk_best", String(v)); } catch (e) {} }
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.hidden = true; }, 2200);
+  }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; }
+    return a;
+  }
+  function refreshBest() {
+    var b = getBest();
+    $("bestLine").textContent = b ? "أفضل نتيجة لك: " + arNum(b) + "٪" : "";
+    $("sBest").textContent = arNum(b);
+  }
+
+  function start() {
+    state = { i: 0, points: 0, gems: 0, streak: 0, maxStreak: 0, correct: 0, order: shuffle(Q), answered: false };
+    show("quiz");
+    updateHud();
+    renderQ();
+  }
+  function updateHud() {
+    $("sPoints").textContent = arNum(state.points);
+    $("sGems").textContent = arNum(state.gems);
+    $("sStreak").textContent = arNum(state.streak);
+    $("sBest").textContent = arNum(getBest());
+  }
+  function renderQ() {
+    var q = state.order[state.i];
+    state.answered = false;
+    $("bar").style.width = (state.i / Q.length * 100) + "%";
+    $("gateName").textContent = q.gate;
+    $("gateCount").textContent = arNum(state.i + 1) + " / " + arNum(Q.length);
+    $("qtag").textContent = "سؤال " + arNum(state.i + 1);
+    $("qtext").textContent = q.t;
+    $("explain").hidden = true;
+    $("nextBtn").hidden = true;
+    var box = $("opts"); box.innerHTML = "";
+    var idx = shuffle(q.o.map(function (_, k) { return k; }));
+    idx.forEach(function (k) {
+      var b = document.createElement("button");
+      b.className = "opt"; b.type = "button";
+      var m = document.createElement("span"); m.className = "mark"; m.setAttribute("aria-hidden", "true");
+      var tx = document.createElement("span"); tx.textContent = q.o[k];
+      b.appendChild(m); b.appendChild(tx);
+      b.addEventListener("click", function () { answer(k, b, idx); });
+      b.dataset.k = k;
+      box.appendChild(b);
+    });
+  }
+  function answer(k, btn) {
+    if (state.answered) return;
+    state.answered = true;
+    var q = state.order[state.i];
+    var ok = (k === q.a);
+    var all = $("opts").querySelectorAll(".opt");
+    all.forEach(function (b) {
+      b.disabled = true;
+      if (parseInt(b.dataset.k, 10) === q.a) { b.classList.add("right"); b.firstChild.textContent = "✓"; }
+    });
+    var ex = $("explain");
+    ex.className = "explain " + (ok ? "ok" : "no");
+    if (ok) {
+      state.correct++; state.streak++;
+      if (state.streak > state.maxStreak) state.maxStreak = state.streak;
+      var bonus = Math.min(state.streak - 1, 3) * 2;
+      state.points += 10 + bonus;
+      state.gems += 1 + ((state.streak === 3 || state.streak === 5 || state.streak === 10) ? 1 : 0);
+      ex.innerHTML = "<strong>إجابة صحيحة، أحسنتِ!</strong>";
+      if (state.streak === 3 || state.streak === 5 || state.streak === 10) toast("سلسلة " + arNum(state.streak) + " إجابات صحيحة، جوهرة إضافية");
+    } else {
+      state.streak = 0;
+      btn.classList.add("wrong"); btn.firstChild.textContent = "✗";
+      ex.innerHTML = "<strong>ليست الإجابة الصحيحة، حاولي في السؤال التالي.</strong>";
+    }
+    var p = document.createElement("span"); p.textContent = q.e; ex.appendChild(p);
+    ex.hidden = false;
+    updateHud();
+    var nb = $("nextBtn"); nb.hidden = false;
+    nb.textContent = (state.i === Q.length - 1) ? "عرض النتيجة" : "السؤال التالي";
+    nb.focus({ preventScroll: true });
+  }
+  function next() {
+    if (state.i === Q.length - 1) { finish(); return; }
+    state.i++; renderQ(); window.scrollTo(0, 0);
+  }
+
+  function pct() { return Math.round(state.correct / Q.length * 100); }
+  function gradeOf(p) { return p >= 90 ? "ممتازة" : p >= 75 ? "جيد جداً" : p >= 60 ? "جيدة" : "تحتاج إلى مراجعة"; }
+
+  var BADGE_SVG = '<svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="%C"/><path d="M15 6l2.6 5.6 6 .7-4.5 4.1 1.2 6L15 19.5l-5.3 2.9 1.2-6L6.400 12.300l6-.7z" fill="#3b2600"/></svg>';
+  function finish() {
+    var p = pct();
+    if (p > getBest()) setBest(p);
+    $("bar").style.width = "100%";
+    $("rPct").textContent = arNum(p) + "٪";
+    $("rCorrect").textContent = arNum(state.correct) + " / " + arNum(Q.length);
+    $("rPoints").textContent = arNum(state.points);
+    $("rGems").textContent = arNum(state.gems);
+    $("rTitle").textContent = p >= 90 ? "أحسنتِ يا بطلة السلوك!" : p >= 60 ? "أحسنتِ، قريباً من القمة" : "بداية جيدة، أعيدي المحاولة";
+    var list = [
+      { n: "بداية موفقة", d: "أجبتِ عن سؤال واحد على الأقل بشكل صحيح", on: state.correct >= 1, c: "#f2c14e" },
+      { n: "سلسلة ذهبية", d: "٥ إجابات صحيحة متتالية", on: state.maxStreak >= 5, c: "#f2c14e" },
+      { n: "حارسة الانضباط", d: "١٥ إجابة صحيحة أو أكثر", on: state.correct >= 15, c: "#3fcf8e" },
+      { n: "بطلة السلوك", d: "نسبة إتقان ٩٠٪ أو أكثر", on: p >= 90, c: "#ff9ad5" },
+      { n: "الدرجة الكاملة", d: "جميع الإجابات صحيحة", on: state.correct === Q.length, c: "#8ec5ff" }
+    ];
+    var bx = $("badges"); bx.innerHTML = "";
+    list.forEach(function (b) {
+      var d = document.createElement("div"); d.className = "badge" + (b.on ? "" : " off");
+      d.innerHTML = BADGE_SVG.replace("%C", b.c) + "<div><b></b><small></small></div>";
+      d.querySelector("b").textContent = b.n;
+      d.querySelector("small").textContent = b.on ? b.d : "لم تُفتح بعد: " + b.d;
+      bx.appendChild(d);
+    });
+    refreshBest();
+    show("result");
+  }
+  function openCert() {
+    var p = pct();
+    $("certPct").textContent = arNum(p) + "٪";
+    $("certGrade").textContent = gradeOf(p);
+    var d = "";
+    try { d = new Date().toLocaleDateString("ar-SA", { year: "numeric", month: "long", day: "numeric" }); } catch (e) { d = new Date().toLocaleDateString(); }
+    $("certDate").textContent = d;
+    updateName();
+    show("certSec");
+  }
+  function updateName() {
+    var v = $("nameInput").value.trim();
+    $("certWho").textContent = v || "اسم الطالبة";
+  }
+
+  $("startBtn").addEventListener("click", start);
+  $("guideBtn").addEventListener("click", function () { prevScreen = "home"; show("guide"); });
+  $("guideBack").addEventListener("click", function () { show(prevScreen); });
+  $("nextBtn").addEventListener("click", next);
+  $("againBtn").addEventListener("click", start);
+  $("homeBtn1").addEventListener("click", function () { show("home"); });
+  $("certBtn").addEventListener("click", openCert);
+  $("backRes").addEventListener("click", function () { show("result"); });
+  $("nameInput").addEventListener("input", updateName);
+
+  refreshBest();
+})();
+</script>
+
+</body></html>
