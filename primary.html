@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مملكة السلوك والمواظبة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one centered column, a rose palace hero over a quiz card; mobile first. Rose ground, gold for rewards only. */
+:root{
+  --bg:#FDF0F5; --surface:#FFFFFF; --ink:#3D1630; --muted:#85506B; --line:#EDC3D5;
+  --primary:#B0225F; --primary-ink:#FFFFFF; --primary-soft:#FBDCE8;
+  --hero:#8E1B4C; --hero-ink:#FFFFFF; --hero-muted:#F7CBDD;
+  --gold:#EDAE2C; --gold-ink:#2A1700;
+  --good:#1B6B44; --good-soft:#DDF1E6; --bad:#A8251D; --bad-soft:#FBE3E1;
+  --display:'Noto Naskh Arabic','Amiri','Traditional Arabic','Geeza Pro',serif; --body:'Noto Naskh Arabic','Amiri','Traditional Arabic','Geeza Pro',serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#22101A; --surface:#321A27; --ink:#F9E8F0; --muted:#D3AEC1; --line:#55304A;
+    --primary:#F08CB5; --primary-ink:#3A0D22; --primary-soft:#4A2438;
+    --hero:#4A1830; --hero-ink:#FFFFFF; --hero-muted:#F7CBDD;
+    --gold:#F2BD4A; --gold-ink:#2A1700;
+    --good:#5BC98F; --good-soft:#17382A; --bad:#F08A82; --bad-soft:#43201E;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+#app{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;font-weight:700;line-height:1.25}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{border:0;border-radius:14px;padding:14px 22px;font-weight:700;font-size:19px;min-height:52px;background:var(--primary);color:var(--primary-ink);display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.btn.gold{background:var(--gold);color:var(--gold-ink)}
+.btn:active{transform:translateY(1px)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>*{flex:1 1 180px;min-width:0}
+
+/* home */
+.hero{background:var(--hero);color:var(--hero-ink);border-radius:26px;padding:28px 24px 0;overflow:hidden;position:relative}
+.hero .eyebrow{font-family:var(--display);font-size:20px;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.hero h1{font-size:clamp(40px,10vw,64px);margin-top:6px}
+.hero p.lead{color:var(--hero-muted);margin-top:10px;max-width:30em}
+.hero svg{display:block;width:min(100%,420px);margin:18px auto 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px}
+.form{display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700;font-size:17px}
+.field input[type=text]{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;min-height:50px;width:100%}
+.meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:16px}
+.meta span{background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:4px 12px;font-weight:700}
+
+/* hud */
+.hud{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px 6px;text-align:center}
+.stat b{display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--display);font-size:24px;line-height:1.3;font-variant-numeric:tabular-nums}
+.stat small{color:var(--muted);font-size:14px;display:block}
+.stat svg{width:20px;height:20px;flex:none}
+.pop{animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.18)}}
+.prog{display:flex;flex-direction:column;gap:6px}
+.prog .top{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:17px}
+.track{height:12px;border-radius:999px;background:var(--primary-soft);overflow:hidden}
+.fill{height:100%;background:var(--primary);border-radius:999px;transition:width .4s ease}
+
+/* quiz */
+.qcard{display:flex;flex-direction:column;gap:18px}
+.chip{align-self:flex-start;background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:3px 14px;font-weight:700;font-size:16px}
+.qtext{font-size:clamp(21px,5.4vw,26px);font-weight:700;line-height:1.55}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:start;border:2px solid var(--line);background:var(--bg);border-radius:16px;padding:12px 14px;min-height:58px;font-weight:500;width:100%}
+.opt .k{flex:none;width:34px;height:34px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-family:var(--display);font-weight:700}
+.opt:hover:not([disabled]){border-color:var(--primary)}
+.opt[disabled]{cursor:default}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.ok .k{background:var(--good);color:var(--surface)}
+.opt.no{border-color:var(--bad);background:var(--bad-soft)}
+.opt.no .k{background:var(--bad);color:var(--surface)}
+.fb{border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.fb.ok{background:var(--good-soft);color:var(--ink);border:1px solid var(--good)}
+.fb.no{background:var(--bad-soft);color:var(--ink);border:1px solid var(--bad)}
+.fb strong{font-family:var(--display);font-size:21px}
+.fb.ok strong{color:var(--good)} .fb.no strong{color:var(--bad)}
+
+/* result */
+.res{display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center}
+.ring{position:relative;width:170px;height:170px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:grid;place-content:center}
+.ring .c b{font-family:var(--display);font-size:44px;line-height:1.1}
+.ring .c span{color:var(--muted);font-size:15px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;width:100%}
+.badge{border:2px solid var(--line);border-radius:16px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;font-size:16px;line-height:1.4}
+.badge small{font-weight:400;color:var(--muted);font-size:14px}
+.badge svg{width:34px;height:34px}
+.badge.on{border-color:var(--gold);background:var(--primary-soft)}
+.badge.off{opacity:.5}
+
+/* certificate */
+.cert{background:var(--surface);border:3px double var(--primary);border-radius:8px;padding:26px 20px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.cert .top{font-size:16px;color:var(--muted)}
+.cert h2{font-size:clamp(30px,8vw,44px);color:var(--primary)}
+.cert .nm{font-family:var(--display);font-size:clamp(26px,7vw,38px);border-bottom:2px solid var(--gold);padding:0 20px 2px;min-width:60%;overflow-wrap:anywhere}
+.cert p{max-width:30em}
+.cert .meta2{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;font-weight:700}
+.sigs{display:flex;gap:30px;justify-content:space-around;flex-wrap:wrap;width:100%;margin-top:10px}
+.sigs div{min-width:140px;flex:1 1 140px;border-top:2px solid var(--line);padding-top:6px;color:var(--muted);font-size:16px}
+.sigs div b{display:block;color:var(--ink);font-size:18px}
+.note{color:var(--muted);font-size:16px;text-align:center}
+.credits{display:flex;flex-direction:column;gap:6px;text-align:center;font-size:17px;color:var(--muted)}
+.credits b{color:var(--ink)}
+.credits .sch{font-family:var(--display);font-size:22px;font-weight:700;color:var(--primary)}
+.cert .made{color:var(--ink);font-size:18px;font-weight:800}
+
+/* guide */
+.ov{position:fixed;inset:0;background:rgba(30,8,20,.66);z-index:20;display:flex;align-items:flex-end;justify-content:center;padding:0;
+  padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:720px;max-height:92%;overflow:auto;border-radius:24px 24px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:16px}
+.sheet header{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:-20px;background:var(--surface);padding:6px 0}
+.x{border:2px solid var(--line);background:var(--bg);border-radius:12px;width:46px;height:46px;font-size:22px;font-weight:700}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:16px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:start;vertical-align:top}
+th{background:var(--primary-soft);color:var(--primary);font-family:var(--display);font-size:17px}
+.sheet h3{font-size:22px;color:var(--primary)}
+.sheet ul{margin:6px 0 0;padding-inline-start:22px;display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:reduce){.pop{animation:none}.fill{transition:none}}
+</style>
+</head>
+<body>
+<main id="app">
+
+<!-- الرئيسية -->
+<section id="home" aria-labelledby="homeT">
+  <div class="hero">
+    <div class="eyebrow">المرحلة الابتدائية · قواعد السلوك والمواظبة</div>
+    <h1 id="homeT">مملكة السلوك والمواظبة</h1>
+    <p class="lead">اعبري بوابات المملكة، وأجيبي عن <span class="qn"></span> سؤالاً من مواقف المدرسة، واجمعي النقاط والجواهر لتصلي إلى شهادتك.</p>
+    <svg aria-hidden="true" viewBox="0 0 520 300">
+      <rect x="0" y="262" width="520" height="38" fill="#2E7A55"/>
+      <rect x="80" y="130" width="64" height="136" fill="#F0B6CC"/><rect x="72" y="114" width="80" height="22" fill="#F8D4E2"/>
+      <polygon points="80,114 112,62 144,114" fill="#EDAE2C"/>
+      <rect x="376" y="130" width="64" height="136" fill="#F0B6CC"/><rect x="368" y="114" width="80" height="22" fill="#F8D4E2"/>
+      <polygon points="376,114 408,62 440,114" fill="#EDAE2C"/>
+      <rect x="144" y="170" width="232" height="96" fill="#F8D4E2"/>
+      <rect x="144" y="154" width="28" height="22" fill="#F8D4E2"/><rect x="192" y="154" width="28" height="22" fill="#F8D4E2"/>
+      <rect x="240" y="154" width="28" height="22" fill="#F8D4E2"/><rect x="288" y="154" width="28" height="22" fill="#F8D4E2"/>
+      <rect x="348" y="154" width="28" height="22" fill="#F8D4E2"/>
+      <rect x="212" y="60" width="96" height="110" fill="#FDEAF2"/><rect x="202" y="44" width="116" height="22" fill="#FFF5F9"/>
+      <polygon points="212,44 260,-8 308,44" fill="#E04A87"/>
+      <line x1="260" y1="-8" x2="260" y2="-28" stroke="#EDAE2C" stroke-width="4"/><path d="M260 -28 L292 -18 L260 -8 Z" fill="#EDAE2C"/>
+      <path d="M228 266 V222 a32 32 0 0 1 64 0 V266 Z" fill="#8E1B4C"/>
+      <rect x="244" y="88" width="32" height="44" rx="16" fill="#8E1B4C"/>
+      <rect x="104" y="150" width="16" height="30" rx="8" fill="#8E1B4C"/><rect x="400" y="150" width="16" height="30" rx="8" fill="#8E1B4C"/>
+    </svg>
+  </div>
+
+  <div class="card form" style="margin-top:18px">
+    <div class="field"><label for="nm">اسمكِ</label><input id="nm" type="text" autocomplete="off" placeholder="اكتبي اسمكِ لتظهر على الشهادة" maxlength="40"></div>
+    <div class="meta"><span><span class="qn"></span> سؤالاً</span><span>5 بوابات</span><span id="bestHome">أفضل نتيجة: 0</span></div>
+    <button class="btn gold" id="start" type="button">ابدئي المغامرة</button>
+    <div class="row">
+      <button class="btn ghost" id="openGuide" type="button">دليل المملكة</button>
+      <button class="btn ghost" id="snd" type="button" aria-pressed="true">الصوت: يعمل</button>
+    </div>
+  </div>
+  <div class="credits" style="margin-top:18px">
+    <div class="sch">الابتدائية الثانية والمتوسطة الأولى بروضة سدير</div>
+    <div style="font-weight:800;color:var(--ink);font-size:19px">تصميم وتنفيذ الموجهة الطلابية / شيخة الزكري</div>
+    <div>وكيلة المدرسة: <b>عُلا اليحيا</b> · مديرة المدرسة: <b>العنود الرويس</b></div>
+  </div>
+</section>
+
+<!-- الأسئلة -->
+<section id="quiz" hidden aria-label="الأسئلة">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="hud" aria-label="لوحة النتائج">
+      <div class="stat"><b id="hPts">0</b><small>النقاط</small></div>
+      <div class="stat"><b><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6,3 18,3 22,9 12,21 2,9" fill="#3FA7D6"/><polygon points="6,3 12,9 18,3" fill="#8AD2F0"/></svg><span id="hGem">0</span></b><small>الجواهر</small></div>
+      <div class="stat"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 3-7 1 1 2 1 3-5z" fill="#E8741F"/></svg><span id="hStr">0</span></b><small>السلسلة</small></div>
+      <div class="stat"><b id="hBest">0</b><small>الأفضل</small></div>
+    </div>
+    <div class="prog">
+      <div class="top"><span id="gateName"></span><span id="pTxt"></span></div>
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="19" id="pBar" aria-valuenow="0"><div class="fill" id="pFill" style="width:0%"></div></div>
+    </div>
+    <div class="card qcard">
+      <span class="chip" id="qChip"></span>
+      <h2 class="qtext" id="qText" tabindex="-1"></h2>
+      <div class="opts" id="opts"></div>
+      <div id="fb" aria-live="polite"></div>
+      <button class="btn" id="next" type="button" hidden>السؤال التالي</button>
+    </div>
+  </div>
+</section>
+
+<!-- النتيجة -->
+<section id="result" hidden aria-labelledby="rT">
+  <div class="card res">
+    <h2 id="rT" tabindex="-1"></h2>
+    <div class="ring">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--primary-soft)" stroke-width="12"/><circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="var(--primary)" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+      <div class="c"><b id="rPct">0%</b><span>نسبة الإتقان</span></div>
+    </div>
+    <p id="rMsg"></p>
+    <div class="grid3">
+      <div class="stat"><b id="rOk">0</b><small>إجابات صحيحة</small></div>
+      <div class="stat"><b id="rPts">0</b><small>النقاط النهائية</small></div>
+      <div class="stat"><b id="rGem">0</b><small>الجواهر</small></div>
+    </div>
+    <div style="width:100%"><h3 style="margin-bottom:10px;font-size:22px">شارات الإنجاز</h3><div class="badges" id="badges"></div></div>
+    <div class="row" style="width:100%">
+      <button class="btn gold" id="toCert" type="button">عرض الشهادة</button>
+      <button class="btn" id="again" type="button">إعادة اللعب</button>
+      <button class="btn ghost" id="toHome" type="button">الرئيسية</button>
+    </div>
+  </div>
+</section>
+
+<!-- الشهادة -->
+<section id="certS" hidden aria-label="الشهادة">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="cert">
+      <div class="top">المملكة العربية السعودية · وزارة التعليم</div>
+      <div class="top" id="cSchool"></div>
+      <h2>شهادة اجتياز</h2>
+      <p id="cLine1"></p>
+      <div class="nm" id="cName"></div>
+      <p id="cLine2"></p>
+      <div class="meta2"><span id="cPct"></span><span id="cGrade"></span><span id="cDate"></span></div>
+      <div class="sigs"><div>وكيلة المدرسة<b>عُلا اليحيا</b></div><div>مديرة المدرسة<b>العنود الرويس</b></div></div>
+      <div class="made">تصميم وتنفيذ الموجهة الطلابية / شيخة الزكري</div>
+    </div>
+    <p class="note">لحفظ الشهادة، التقطي لقطة شاشة لها بعد كتابة اسمكِ.</p>
+    <div class="row"><button class="btn" id="cBack" type="button">رجوع إلى النتيجة</button><button class="btn ghost" id="cHome" type="button">الرئيسية</button></div>
+  </div>
+</section>
+
+</main>
+
+<!-- الدليل -->
+<div class="ov" id="guide" hidden role="dialog" aria-modal="true" aria-labelledby="gT">
+  <div class="sheet">
+    <header><h2 id="gT" style="font-size:28px">دليل المملكة</h2><button class="x" id="closeGuide" type="button" aria-label="إغلاق الدليل">×</button></header>
+    <div>
+      <h3>درجات المشكلات والحسم</h3>
+      <div class="tw"><table>
+        <tr><th>الدرجة</th><th>الحسم</th><th>أمثلة</th></tr>
+        <tr><td>الأولى</td><td>درجة واحدة</td><td>التأخر أو الأكل أثناء الدرس دون استئذان.</td></tr>
+        <tr><td>الثانية</td><td>درجتان</td><td>الخروج دون استئذان، أو السخرية، أو العبث بالمرافق.</td></tr>
+        <tr><td>الثالثة</td><td>3 درجات</td><td>السرقة، أو الضرب، أو التصوير دون إذن، أو الهروب.</td></tr>
+        <tr><td>الرابعة</td><td>10 درجات</td><td>التنمر، أو إشعال النار، أو الأداة الحادة، أو الجريمة المعلوماتية.</td></tr>
+      </table></div>
+    </div>
+    <div>
+      <h3>توزيع الدرجات</h3>
+      <ul>
+        <li>للصفوف من الثالث إلى السادس الابتدائي: 100 درجة للسلوك، منها 80 للسلوك الإيجابي و20 للسلوك المتميز.</li>
+        <li>تُستخدم اللعبة مع الصفين الأول والثاني للتوعية بالسلوك الصحيح.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>قيم السلوك المتميز</h3>
+      <p>الانتماء الوطني، الانضباط، العزيمة، التسامح، الأمانة، والتعاون.</p>
+    </div>
+    <div>
+      <h3>فرص كسب درجات السلوك المتميز</h3>
+      <p>الانضباط دون غياب بعذر غير مقبول، الخدمة المجتمعية، الفعاليات والحملات التوعوية، الأنشطة المدرسية، الإذاعة، المقترحات، والتعاون.</p>
+    </div>
+    <p class="note">اللعبة للتوعية والتدريب. عند التطبيق الإداري الرسمي يُرجع إلى النص الكامل لقواعد السلوك والمواظبة.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* الإجابة الصحيحة هي الأولى في كل قائمة، ثم تُخلط عند اللعب */
+  var Q=[
+   {g:'بوابة الانضباط',q:'وصلتِ إلى الطابور الصباحي بعد بدايته دون عذر. ما درجة هذه المخالفة؟',o:['الأولى، وتُحسم درجة واحدة','الثانية، وتُحسم درجتان','الثالثة، وتُحسم 3 درجات','ليست مخالفة'],e:'التأخر من مخالفات الدرجة الأولى، ويُحسم لها درجة واحدة. الحضور في الوقت يحميكِ من هذا الحسم.'},
+   {g:'بوابة الانضباط',q:'أكلتِ أثناء الدرس دون استئذان من المعلمة. إلى أي درجة تنتمي المخالفة؟',o:['الدرجة الأولى','الدرجة الرابعة','الدرجة الثالثة','لا تُحسب'],e:'الأكل أثناء الدرس دون استئذان من الدرجة الأولى. اتركيه للفسحة.'},
+   {g:'بوابة الانضباط',q:'خرجتِ من الصف دون استئذان. كم درجة تُحسم؟',o:['درجتان','درجة واحدة','3 درجات','10 درجات'],e:'الخروج من الصف دون استئذان من مخالفات الدرجة الثانية، ويُحسم لها درجتان. استأذني دائماً قبل الخروج.'},
+   {g:'بوابة الانضباط',q:'ما الذي يدخل ضمن مخالفات الدرجة الثانية؟',o:['السخرية من زميلة','ارتداء الحذاء الرياضي','رفع اليد للإجابة','ترتيب الحقيبة'],e:'السخرية من الزميلات والعبث بمرافق المدرسة من الدرجة الثانية، ويُحسم لهما درجتان.'},
+   {g:'بوابة الانضباط',q:'رأيتِ زميلتكِ ترسم على جدار الفصل وتعبث بالمرافق. ماذا تنصحينها؟',o:['أن تتوقف لأن المرافق ملك للجميع','أن تكمل لأن الأمر بسيط','أن تفعل ذلك في الفسحة فقط','أن تطلب من غيرها المساعدة'],e:'العبث بالمرافق من الدرجة الثانية. المحافظة على مرافق المدرسة مسؤولية الجميع.'},
+   {g:'بوابة الأمانة',q:'أخذت طالبة أداة زميلتها دون علمها وأخفتها. ما درجة هذه المخالفة؟',o:['الثالثة، وتُحسم 3 درجات','الأولى','الثانية','الرابعة، وتُحسم 10 درجات'],e:'السرقة من مخالفات الدرجة الثالثة، ويُحسم لها 3 درجات. الأمانة قيمة أساسية في السلوك المتميز.'},
+   {g:'بوابة الأمانة',q:'غضبت زميلتكِ وضربت طالبة أخرى. كم درجة تُحسم؟',o:['3 درجات','درجة واحدة','درجتان','لا شيء'],e:'الضرب من الدرجة الثالثة ويُحسم له 3 درجات. الحوار الهادئ وطلب مساعدة المعلمة هما الطريق الصحيح.'},
+   {g:'بوابة الأمانة',q:'أخرجتِ جوالكِ لتصوّري زميلتكِ دون أن تعلم. ما الحكم؟',o:['الدرجة الثالثة، وتُحسم 3 درجات','مباح لأنها زميلتكِ','الدرجة الأولى','لا يُحسب إن لم تنشريها'],e:'التصوير دون إذن من الدرجة الثالثة. لكل شخص حق في خصوصيته، وعليكِ أن تستأذني قبل أي تصوير.'},
+   {g:'بوابة الأمانة',q:'فكّرت طالبة في مغادرة المدرسة قبل نهاية الدوام دون إذن. ما درجة الهروب؟',o:['الثالثة','الأولى','الثانية','الرابعة'],e:'الهروب من المدرسة من مخالفات الدرجة الثالثة، وتُحسم له 3 درجات، وفيه خطر على سلامتكِ.'},
+   {g:'بوابة الأمان',q:'تتكرر إساءة طالبة لأخرى بالكلام والإقصاء بقصد الإيذاء. ماذا يسمى هذا السلوك، وما درجته؟',o:['تنمر، الدرجة الرابعة','مزاح، لا درجة له','خلاف عابر، الدرجة الأولى','سخرية، الدرجة الثانية فقط'],e:'التنمر من مخالفات الدرجة الرابعة، ويُحسم له 10 درجات. أخبري المعلمة أو الموجهة الطلابية إن رأيتِه أو تعرضتِ له.'},
+   {g:'بوابة الأمان',q:'وجدتِ أداة حادة في حقيبة زميلتكِ داخل المدرسة. ماذا تفعلين؟',o:['أخبر المعلمة فوراً','أتجاهلها','أجرّبها','أخفيها دون إخبار أحد'],e:'الأداة الحادة من مخالفات الدرجة الرابعة (10 درجات). إخبار المعلمة يحمي الجميع.'},
+   {g:'بوابة الأمان',q:'أيٌّ مما يلي من مخالفات الدرجة الرابعة؟',o:['إشعال النار','نسيان الدفتر','التأخر عن الحصة','الحديث بصوت مرتفع'],e:'إشعال النار من الدرجة الرابعة لخطورته على الجميع، ويُحسم له 10 درجات.'},
+   {g:'بوابة الأمان',q:'نشرت طالبة صورة مزعجة لزميلتها في مجموعة على الإنترنت. كيف تُصنَّف؟',o:['جريمة معلوماتية، الدرجة الرابعة','تصرف بسيط، الدرجة الأولى','أمر خاص، لا حسم','الدرجة الثانية'],e:'الجريمة المعلوماتية من الدرجة الرابعة، ويُحسم لها 10 درجات. فكّري قبل أن ترسلي أو تنشري أي شيء.'},
+   {g:'بوابة الدرجات',q:'كم درجة السلوك للصفوف من الثالث إلى السادس الابتدائي، وكيف تتوزع؟',o:['100 درجة: 80 للإيجابي و20 للمتميز','50 للإيجابي و50 للمتميز','90 للإيجابي و10 للمتميز','70 للإيجابي و30 للمتميز'],e:'درجة السلوك 100: 80 للسلوك الإيجابي و20 للسلوك المتميز. أما الصفان الأول والثاني فتُستخدم اللعبة معهما للتوعية.'},
+   {g:'بوابة الدرجات',q:'أيٌّ مما يلي من قيم السلوك المتميز؟',o:['الأمانة','التفاخر','التأخر','الإهمال'],e:'قيم السلوك المتميز: الانتماء الوطني، الانضباط، العزيمة، التسامح، الأمانة، والتعاون.'},
+   {g:'بوابة الدرجات',q:'تشاركين في الإذاعة المدرسية صباح كل أسبوع. كيف يفيدكِ ذلك؟',o:['هي فرصة لكسب درجات السلوك المتميز','تُحسم منكِ درجات','لا علاقة لها بالسلوك','تُلغى مخالفاتكِ السابقة'],e:'الإذاعة والأنشطة المدرسية والخدمة المجتمعية والحملات التوعوية من فرص كسب درجات السلوك المتميز.'},
+   {g:'بوابة المواقف',q:'وجدتِ في الفناء محفظة زميلتكِ وفيها نقود. ما التصرف الأمين؟',o:['أسلّمها للمعلمة أو الإدارة','آخذ النقود وأترك المحفظة','أحتفظ بها حتى تسأل عنها','أتركها مكانها'],e:'الأمانة أن تسلّمي ما وجدتِه لمعلمتكِ أو للإدارة لتصل إلى صاحبتها.'},
+   {g:'بوابة المواقف',q:'لاحظتِ أن زميلتكِ تتعرض للتنمر كل يوم في الفسحة. ما أفضل تصرف؟',o:['أخبر المعلمة أو الموجهة الطلابية شيخة الزكري','أضحك مع المتنمرات','أصمت حتى لا أتورط','أنشر الأمر بين الطالبات'],e:'إبلاغ المعلمة أو الموجهة الطلابية يحمي زميلتكِ، ويظهر تعاونكِ وانتماءكِ لمدرستكِ.'},
+   {g:'بوابة المواقف',q:'أخطأت زميلتكِ في حقكِ واعتذرت لكِ بصدق. أي قيمة تظهرين بقبول اعتذارها؟',o:['التسامح','العناد','الانتقام','التجاهل'],e:'التسامح من قيم السلوك المتميز. قبول الاعتذار يحافظ على الصداقة ويبني بيئة مدرسية هادئة.'}
+  ];
+  var LETTERS=['أ','ب','ج','د'];
+  var $=function(id){return document.getElementById(id)};
+  function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var SCHOOL='الابتدائية الثانية والمتوسطة الأولى بروضة سدير';
+  var S={name:'',list:[],i:0,pts:0,gems:0,str:0,maxStr:0,ok:0,done:[],locked:false,best:0,snd:true,actx:null,pct:0};
+  S.best=parseInt(load('pk-best')||'0',10)||0;
+  var savedName=load('pk-name');
+  if(savedName)$('nm').value=savedName;
+  $('bestHome').textContent='أفضل نتيجة: '+S.best;
+  Array.prototype.forEach.call(document.querySelectorAll('.qn'),function(el){el.textContent=Q.length});
+  $('pBar').setAttribute('aria-valuemax',Q.length);
+
+  function show(id){['home','quiz','result','certS'].forEach(function(s){$(s).hidden=(s!==id)}); window.scrollTo(0,0);}
+
+  /* الصوت */
+  function tone(f,t,d,type){
+    if(!S.snd)return;
+    try{
+      if(!S.actx)S.actx=new (window.AudioContext||window.webkitAudioContext)();
+      var o=S.actx.createOscillator(),g=S.actx.createGain();
+      o.type=type||'sine';o.frequency.value=f;o.connect(g);g.connect(S.actx.destination);
+      var n=S.actx.currentTime+t;g.gain.setValueAtTime(0.0001,n);g.gain.exponentialRampToValueAtTime(0.18,n+0.02);g.gain.exponentialRampToValueAtTime(0.0001,n+d);
+      o.start(n);o.stop(n+d+0.02);
+    }catch(e){}
+  }
+  var sfx={ok:function(){tone(660,0,.14);tone(880,.12,.22)},no:function(){tone(220,0,.28,'triangle')},win:function(){tone(523,0,.15);tone(659,.15,.15);tone(784,.3,.3)}};
+  $('snd').addEventListener('click',function(){S.snd=!S.snd;this.setAttribute('aria-pressed',String(S.snd));this.textContent='الصوت: '+(S.snd?'يعمل':'متوقف');if(S.snd)tone(660,0,.12)});
+
+  function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+  function start(){
+    S.name=$('nm').value.trim();
+    save('pk-name',S.name);
+    S.list=Q.map(function(q){return {g:q.g,q:q.q,e:q.e,o:shuffle(q.o.map(function(t,k){return {t:t,ok:k===0}}))}});
+    S.i=0;S.pts=0;S.gems=0;S.str=0;S.maxStr=0;S.ok=0;S.done=[];
+    show('quiz');renderQ();
+  }
+  function hud(pop){
+    $('hPts').textContent=S.pts;$('hGem').textContent=S.gems;$('hStr').textContent=S.str;$('hBest').textContent=S.best;
+    if(pop){['hPts','hGem','hStr'].forEach(function(id){var el=$(id).closest('.stat');el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')})}
+  }
+  function renderQ(){
+    var q=S.list[S.i];S.locked=false;
+    $('gateName').textContent=q.g;
+    $('pTxt').textContent=(S.i+1)+' / '+S.list.length;
+    $('pFill').style.width=(S.i/S.list.length*100)+'%';$('pBar').setAttribute('aria-valuenow',S.i);
+    $('qChip').textContent='سؤال '+(S.i+1);$('qText').textContent=q.q;
+    $('fb').innerHTML='';$('next').hidden=true;
+    var box=$('opts');box.innerHTML='';
+    q.o.forEach(function(o,k){
+      var b=document.createElement('button');b.type='button';b.className='opt';
+      var s=document.createElement('span');s.className='k';s.textContent=LETTERS[k];
+      var t=document.createElement('span');t.textContent=o.t;
+      b.appendChild(s);b.appendChild(t);
+      b.addEventListener('click',function(){answer(k)});box.appendChild(b);
+    });
+    hud(false);
+  }
+  function answer(k){
+    if(S.locked)return;S.locked=true;
+    var q=S.list[S.i],btns=$('opts').children,right=q.o[k].ok;
+    for(var n=0;n<btns.length;n++){btns[n].disabled=true;if(q.o[n].ok){btns[n].classList.add('ok');btns[n].firstChild.textContent='✓'}}
+    if(!right){btns[k].classList.add('no');btns[k].firstChild.textContent='✗'}
+    S.done.push(right);
+    var extra='';
+    if(right){
+      S.ok++;S.str++;if(S.str>S.maxStr)S.maxStr=S.str;
+      var add=10;if(S.str>=3)add+=5;S.pts+=add;S.gems+=1;
+      if(S.str===5||S.str===10){S.gems+=3;extra=' وحصلتِ على 3 جواهر إضافية لسلسلة '+S.str+' إجابات.'}
+      else if(S.str>=3){extra=' وأضفنا 5 نقاط لسلسلتكِ.'}
+      sfx.ok();
+    }else{S.str=0;sfx.no();}
+    if(S.pts>S.best)S.best=S.pts;
+    var fb=$('fb');fb.innerHTML='';
+    var d=document.createElement('div');d.className='fb '+(right?'ok':'no');
+    var h=document.createElement('strong');h.textContent=right?'إجابة صحيحة، أحسنتِ':'ليست الإجابة الصحيحة، حاولي في السؤال التالي';
+    var p=document.createElement('p');p.textContent=q.e+(right?extra:'');
+    d.appendChild(h);d.appendChild(p);fb.appendChild(d);
+    var nx=$('next');nx.hidden=false;nx.textContent=S.i<S.list.length-1?'السؤال التالي':'عرض النتيجة';
+    hud(true);nx.focus({preventScroll:false});
+  }
+  $('next').addEventListener('click',function(){
+    if(S.i<S.list.length-1){S.i++;renderQ();$('qText').focus({preventScroll:true});window.scrollTo(0,0)}
+    else finish();
+  });
+
+  function grade(p){return p>=90?'ممتازة':p>=75?'جيد جداً':p>=60?'جيدة':'تحتاج إلى مراجعة'}
+  var ICON={
+    shield:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z" fill="#EDAE2C"/><path d="M8.5 12l2.5 2.5L16 9.5" fill="none" stroke="#2A1700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    star:'<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 16.5,14 18.5,21.5 12,17.5 5.5,21.5 7.5,14 2,9.5 9,9" fill="#EDAE2C"/></svg>',
+    cal:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="#EDAE2C"/><rect x="3" y="5" width="18" height="5" fill="#C98A0A"/><path d="M8 15l3 3 5-6" fill="none" stroke="#2A1700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    flame:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 3-7 1 1 2 1 3-5z" fill="#E8741F"/></svg>',
+    crown:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l5 4 4-7 4 7 5-4-2 11H5z" fill="#EDAE2C"/></svg>'
+  };
+  function badges(pct){
+    var n=S.list.length;
+    return [
+      {n:'بداية موفقة',d:'إجابة صحيحة واحدة على الأقل',on:S.ok>=1,i:ICON.star},
+      {n:'سلسلة الذهب',d:'5 إجابات صحيحة متتالية',on:S.maxStr>=5,i:ICON.flame},
+      {n:'حارسة الانضباط',d:'15 إجابة صحيحة أو أكثر',on:S.ok>=15,i:ICON.shield},
+      {n:'بطلة السلوك',d:'إتقان 90% فأكثر',on:pct>=90,i:ICON.crown},
+      {n:'الدرجة الكاملة',d:'جميع الإجابات صحيحة',on:S.ok===n,i:ICON.cal}
+    ];
+  }
+  function finish(){
+    var n=S.list.length,pct=Math.round(S.ok/n*100);S.pct=pct;
+    if(S.pts>=S.best){S.best=S.pts}
+    save('pk-best',String(S.best));
+    $('bestHome').textContent='أفضل نتيجة: '+S.best;
+    $('pFill').style.width='100%';
+    $('rT').textContent=pct>=90?'أحسنتِ يا بطلة السلوك المتميز':pct>=60?'أنهيتِ الرحلة بنجاح':'أنهيتِ الرحلة، ولا تزال المملكة بانتظاركِ';
+    $('rPct').textContent=pct+'%';
+    $('arc').style.strokeDashoffset=String(326.7*(1-pct/100));
+    $('rMsg').textContent='التقدير: '+grade(pct)+'. '+(pct>=90?'عبرتِ كل بوابات المملكة تقريباً دون خطأ.':pct>=60?'راجعي دليل المملكة لتتقني الدرجات التي أخطأتِ فيها.':'اقرئي دليل المملكة ثم أعيدي المحاولة، فالنتيجة تتحسن بالمراجعة.');
+    $('rOk').textContent=S.ok+' / '+n;$('rPts').textContent=S.pts;$('rGem').textContent=S.gems;
+    var bx=$('badges');bx.innerHTML='';
+    badges(pct).forEach(function(b){
+      var d=document.createElement('div');d.className='badge '+(b.on?'on':'off');
+      d.innerHTML=b.i;
+      var a=document.createElement('span');a.textContent=b.n;var s=document.createElement('small');s.textContent=b.on?b.d:'مقفلة: '+b.d;
+      d.appendChild(a);d.appendChild(s);bx.appendChild(d);
+    });
+    show('result');$('rT').focus({preventScroll:true});
+    if(pct>=60)sfx.win();
+  }
+
+  function cert(){
+    var pct=S.pct;
+    $('cSchool').textContent=SCHOOL;
+    $('cLine1').textContent='تشهد إدارة المدرسة بأن الطالبة';
+    $('cName').textContent=($('nm').value.trim())||'..........................';
+    $('cLine2').textContent='قد اجتازت رحلة «مملكة السلوك والمواظبة» للمرحلة الابتدائية، وأظهرت فهماً متميزاً لقيم الانضباط والأمانة والتعاون والسلوك الإيجابي.';
+    $('cPct').textContent='نسبة الإتقان: '+pct+'%';$('cGrade').textContent='التقدير: '+grade(pct);
+    var ds='';
+    try{ds=new Date().toLocaleDateString('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'})}catch(e){}
+    if(!ds){try{ds=new Date().toLocaleDateString('ar')}catch(e){ds=''}}
+    $('cDate').textContent='التاريخ: '+ds;
+    show('certS');
+  }
+  $('start').addEventListener('click',start);
+  $('again').addEventListener('click',start);
+  $('toHome').addEventListener('click',function(){show('home')});
+  $('toCert').addEventListener('click',cert);
+  $('cBack').addEventListener('click',function(){show('result')});
+  $('cHome').addEventListener('click',function(){show('home')});
+
+  /* الدليل */
+  var lastFocus=null;
+  function openG(){lastFocus=document.activeElement;$('guide').hidden=false;$('closeGuide').focus()}
+  function closeG(){$('guide').hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+  $('openGuide').addEventListener('click',openG);
+  $('closeGuide').addEventListener('click',closeG);
+  $('guide').addEventListener('click',function(e){if(e.target===this)closeG()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('guide').hidden)closeG()});
+})();
+</script>
+
+</body>
+</html>
